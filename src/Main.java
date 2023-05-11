@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         System.out.println("fahdljfashdfasfd!");
-        Frame n = new Frame(5,5, guessWordColors("apple", "hello"));
+        Frame n = new Frame();
     }
 
     public static Color[] guessWordColors(String answer, String guess) {
