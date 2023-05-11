@@ -18,124 +18,130 @@ public class Frame{
 
     JFrame frame;
 
-    JPanel word1Grid, word2Grid, word3Grid, word4Grid, word5Grid, word6Grid;
+    JPanel word1Grid, word2Grid, word3Grid, word4Grid, word5Grid, word6Grid, bottomtextpanel, allwordGrid;
 
     JLabel letter1word1, letter2word1, letter3word1, letter4word1, letter5word1, letter1word2, letter2word2, letter3word2, letter4word2, letter5word2, letter1word3, letter2word3, letter3word3, letter4word3, letter5word3, letter1word4, letter2word4, letter3word4, letter4word4, letter5word4, letter1word5, letter2word5, letter3word5, letter4word5, letter5word5, letter1word6, letter2word6, letter3word6, letter4word6, letter5word6;
 
     public Frame(){
         //dont need row and col because answer.length is the width and it is always 6 down
-        answer = "apple";//temporary until u bozos fix generateWord()
+        answer = "APPLE";//GenerateWord().toUppercase() temporary until u bozos fix generateWord()
         spaces = new char[answer.length()][6];
         colors = new Color[answer.length()][6];
-        for (int i = 0; i < colors.length; i++) {
-            for (int j = 0; j < colors[0].length; j++) {
-                colors[i][j] = Color.GRAY;
-            }
-        }
         // Creates Frame
         frame = new JFrame("Wordle");
-        frame.setLayout(new BoxLayout(frame, BoxLayout.PAGE_AXIS));
+        frame.setLayout(new BorderLayout());
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        allwordGrid = new JPanel();
+        allwordGrid.setLayout(new BoxLayout(allwordGrid, BoxLayout.Y_AXIS));
         //Creates panel for word 1 which will hold all the letters
         word1Grid = new JPanel();
-        word1Grid.setLayout(new BoxLayout(word1Grid, BoxLayout.LINE_AXIS));
+        word1Grid.setLayout(new BoxLayout(word1Grid, BoxLayout.X_AXIS));
         //Creates the letter holders for word 1
-        letter1word1 = new JLabel("");
-        letter1word1.add(word1Grid);
-        letter2word1 = new JLabel("");
-        letter2word1.add(word1Grid);
-        letter3word1 = new JLabel("");
-        letter3word1.add(word1Grid);
-        letter4word1 = new JLabel("");
-        letter4word1.add(word1Grid);
-        letter5word1 = new JLabel("");
-        letter5word1.add(word1Grid);
+        letter1word1 = new JLabel(" ");
+        word1Grid.add(letter1word1);
+        letter2word1 = new JLabel(" ");
+        word1Grid.add(letter2word1);
+        letter3word1 = new JLabel(" ");
+        word1Grid.add(letter3word1);
+        letter4word1 = new JLabel(" ");
+        word1Grid.add(letter4word1);
+        letter5word1 = new JLabel(" ");
+        word1Grid.add(letter5word1);
         //adds word one to frame
-        word1Grid.add(frame);
+        allwordGrid.add(word1Grid);
         // Creates Panel for word 2
         word2Grid = new JPanel();
-        word2Grid.setLayout(new BoxLayout(word2Grid, BoxLayout.LINE_AXIS));
+        word2Grid.setLayout(new BoxLayout(word2Grid, BoxLayout.X_AXIS));
         //Creates the letter holders for word 2
-        letter1word2 = new JLabel("");
-        letter1word2.add(word2Grid);
-        letter2word2 = new JLabel("");
-        letter2word2.add(word2Grid);
-        letter3word2 = new JLabel("");
-        letter3word2.add(word2Grid);
-        letter4word2 = new JLabel("");
-        letter4word2.add(word2Grid);
-        letter5word2 = new JLabel("");
-        letter5word2.add(word2Grid);
+        letter1word2 = new JLabel(" ");
+        word2Grid.add(letter1word2);
+        letter2word2 = new JLabel(" ");
+        word2Grid.add(letter2word2);
+        letter3word2 = new JLabel(" ");
+        word2Grid.add(letter3word2);
+        letter4word2 = new JLabel(" ");
+        word2Grid.add(letter4word2);
+        letter5word2 = new JLabel(" ");
+        word2Grid.add(letter5word2);
         //adds word two to frame
-        word2Grid.add(frame);
+        allwordGrid.add(word2Grid);
         // Creates Panel for word 3
         word3Grid = new JPanel();
-        word3Grid.setLayout(new BoxLayout(word3Grid, BoxLayout.LINE_AXIS));
+        word3Grid.setLayout(new BoxLayout(word3Grid, BoxLayout.X_AXIS));
         //Creates the letter holders for word 3
-        letter1word3 = new JLabel("");
-        letter1word3.add(word3Grid);
-        letter2word3 = new JLabel("");
-        letter2word3.add(word3Grid);
-        letter3word3 = new JLabel("");
-        letter3word3.add(word3Grid);
-        letter4word3 = new JLabel("");
-        letter4word3.add(word3Grid);
-        letter5word3 = new JLabel("");
-        letter5word3.add(word3Grid);
+        letter1word3 = new JLabel(" ");
+        word3Grid.add(letter1word3);
+        letter2word3 = new JLabel(" ");
+        word3Grid.add(letter2word3);
+        letter3word3 = new JLabel(" ");
+        word3Grid.add(letter3word3);
+        letter4word3 = new JLabel(" ");
+        word3Grid.add(letter4word3);
+        letter5word3 = new JLabel(" ");
+        word3Grid.add(letter5word3);
         //adds word three to frame
-        word3Grid.add(frame);
+        allwordGrid.add(word3Grid);
         // Creates Panel for word 4
         word4Grid = new JPanel();
-        word4Grid.setLayout(new BoxLayout(word4Grid, BoxLayout.LINE_AXIS));
+        word4Grid.setLayout(new BoxLayout(word4Grid, BoxLayout.X_AXIS));
         //Creates the letter holders for word 4
-        letter1word4 = new JLabel("");
-        letter1word4.add(word4Grid);
-        letter2word4 = new JLabel("");
-        letter2word4.add(word4Grid);
-        letter3word4 = new JLabel("");
-        letter3word4.add(word4Grid);
-        letter4word4 = new JLabel("");
-        letter4word4.add(word4Grid);
-        letter5word4 = new JLabel("");
-        letter5word4.add(word4Grid);
+        letter1word4 = new JLabel(" ");
+        word4Grid.add(letter1word4);
+        letter2word4 = new JLabel(" ");
+        word4Grid.add(letter2word4);
+        letter3word4 = new JLabel(" ");
+        word4Grid.add(letter3word4);
+        letter4word4 = new JLabel(" ");
+        word4Grid.add(letter4word4);
+        letter5word4 = new JLabel(" ");
+        word4Grid.add(letter5word4);
         //adds word four to frame
-        word4Grid.add(frame);
+        allwordGrid.add(word4Grid);
         // Creates Panel for word 5
         word5Grid = new JPanel();
-        word5Grid.setLayout(new BoxLayout(word5Grid, BoxLayout.LINE_AXIS));
+        word5Grid.setLayout(new BoxLayout(word5Grid, BoxLayout.X_AXIS));
         //Creates the letter holders for word 5
-        letter1word5 = new JLabel("");
-        letter1word5.add(word5Grid);
-        letter2word5 = new JLabel("");
-        letter2word5.add(word5Grid);
-        letter3word5 = new JLabel("");
-        letter3word5.add(word5Grid);
-        letter4word5 = new JLabel("");
-        letter4word5.add(word5Grid);
-        letter5word5 = new JLabel("");
-        letter5word5.add(word5Grid);
+        letter1word5 = new JLabel(" ");
+        word5Grid.add(letter1word5);
+        letter2word5 = new JLabel(" ");
+        word5Grid.add(letter2word5);
+        letter3word5 = new JLabel(" ");
+        word5Grid.add(letter3word5);
+        letter4word5 = new JLabel(" ");
+        word5Grid.add(letter4word5);
+        letter5word5 = new JLabel(" ");
+        word5Grid.add(letter5word5);
         //adds word five to frame
-        word5Grid.add(frame);
+        allwordGrid.add(word5Grid);
         // Creates Panel for word 6
         word6Grid = new JPanel();
-        word6Grid.setLayout(new BoxLayout(word6Grid, BoxLayout.LINE_AXIS));
+        word6Grid.setLayout(new BoxLayout(word6Grid, BoxLayout.X_AXIS));
         //Creates the letter holders for word 6
-        letter1word6 = new JLabel("");
-        letter1word6.add(word6Grid);
-        letter2word6 = new JLabel("");
-        letter2word6.add(word6Grid);
-        letter3word6 = new JLabel("");
-        letter3word6.add(word6Grid);
-        letter4word6 = new JLabel("");
-        letter4word6.add(word6Grid);
-        letter5word6 = new JLabel("");
-        letter5word6.add(word6Grid);
+        letter1word6 = new JLabel(" ");
+        word6Grid.add(letter1word6);
+        letter2word6 = new JLabel(" ");
+        word6Grid.add(letter2word6);
+        letter3word6 = new JLabel(" ");
+        word6Grid.add(letter3word6);
+        letter4word6 = new JLabel(" ");
+        word6Grid.add(letter4word6);
+        letter5word6 = new JLabel(" ");
+        word6Grid.add(letter5word6);
         //adds word six to frame
-        word6Grid.add(frame);
+        allwordGrid.add(word6Grid);
+
+        frame.add(allwordGrid, BorderLayout.NORTH);
+
+        bottomtextpanel = new JPanel();
+        bottomtextpanel.setLayout(new BorderLayout());
+        frame.add(bottomtextpanel, BorderLayout.SOUTH);
 
         JTextField answerFeild = new JTextField("", 10);
+        bottomtextpanel.add(answerFeild, BorderLayout.WEST);
 
         JButton enterbutton = new JButton("Enter");
+        bottomtextpanel.add(enterbutton, BorderLayout.EAST);
 
         frame.pack();
         frame.setVisible(true);
@@ -166,12 +172,13 @@ public class Frame{
         updateColorList(listOfColors);
         updateWordShown(guess);
         updateLetters(guess);
+        frame.repaint();
     }
     //gets next empty row
     public int getRow() {
         int rownum = 0;
         int whilehelp = 0;
-        while (whilehelp == 0) {
+        while (whilehelp == 0 || rownum < colors[0].length) {
             if (colors[0][rownum] != null) {
                 rownum++;
             } else {
