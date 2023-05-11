@@ -7,24 +7,27 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         System.out.println("fahdljfashdfasfd!");
+        Frame n = new Frame();
     }
 
-    public static ArrayList<Color> guessWordColors (ArrayList<Character> answer, ArrayList<Character> guess){
-        ArrayList<Color> listOfColors = new ArrayList<Color>(answer.size());
+    public static Color[] guessWordColors(String answer, String guess) {
+        Color[] listOfColors = new Color[answer.length()];
 
-        if (guess.size() == answer.size() && answer.size() > 0){
-            for (int i = 0; i < answer.size(); i++) {
-                for (int j = 0; j < guess.size(); j++) {
-                    if (i == j && answer.get(i) == guess.get(j)) {
-                        listOfColors.set(i, Color.GREEN);
-                    } else if (answer.contains(guess.get(j))) {
-                        listOfColors.set(j, Color.YELLOW);
-                    } else {
-                        listOfColors.set(j, Color.GRAY);
-                    }
-                }
+        if (guess.length() != answer.length() || answer.isEmpty()) {
+            return listOfColors;
+        }
+
+        for (int i = 0; i < answer.length(); i++) {
+            if (answer.charAt(i) == guess.charAt(i)) {
+                listOfColors[i] = Color.GREEN;
+            } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
+                answer = answer.substring(0, i) + " " + answer.substring(i+1);
+                listOfColors[i] = Color.YELLOW;
+            } else {
+                listOfColors[i] = Color.RED;
             }
         }
+
         return listOfColors;
     }
 
