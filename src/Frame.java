@@ -150,6 +150,7 @@ public class Frame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (answerField.getText().length() == answer.length()){
+                    System.out.println("test1");
                     compareToAnswer(answer, answerField.getText());
                 }
             }
@@ -171,8 +172,11 @@ public class Frame{
             }
         }
         updateColorList(listOfColors);
+        System.out.println("test3");
         updateWordShown(guess);
+        System.out.println("test4");
         updateLetters(guess);
+        System.out.println("test2");
         frame.repaint();
     }
     //gets next empty row
@@ -185,7 +189,10 @@ public class Frame{
             } else {
                 whilehelp++;
             }
-        } return rownum;
+        }
+        System.out.println("test0");
+
+        return rownum;
     }
     //takes a list of colors and adds it to the next row available in the 2d color array
     private void updateColorList(Color[] colorlist){
