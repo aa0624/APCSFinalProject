@@ -137,8 +137,8 @@ public class Frame{
         bottomtextpanel.setLayout(new BorderLayout());
         frame.add(bottomtextpanel, BorderLayout.SOUTH);
 
-        JTextField answerFeild = new JTextField("", 10);
-        bottomtextpanel.add(answerFeild, BorderLayout.WEST);
+        JTextField answerField = new JTextField("", 10);
+        bottomtextpanel.add(answerField, BorderLayout.WEST);
 
         JButton enterbutton = new JButton("Enter");
         bottomtextpanel.add(enterbutton, BorderLayout.EAST);
@@ -149,8 +149,8 @@ public class Frame{
         enterbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(answerFeild.getText().length() == answer.length()){
-                    compareToAnswer(answer, answerFeild.getText());
+                if (answerField.getText().length() == answer.length()){
+                    compareToAnswer(answer, answerField.getText());
                 }
             }
         });
@@ -161,6 +161,7 @@ public class Frame{
         Color[] listOfColors = new Color[answer.length()];
         for (int i = 0; i < answer.length(); i++) {
             if (answer.charAt(i) == guess.charAt(i)) {
+                answer = answer.substring(0, i) + " " + answer.substring(i+1);
                 listOfColors[i] = Color.GREEN;
             } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
                 answer = answer.substring(0, i) + " " + answer.substring(i+1);
@@ -186,7 +187,7 @@ public class Frame{
             }
         } return rownum;
     }
-    //takes a list of colors and adds it to the next row availible in the 2d color array
+    //takes a list of colors and adds it to the next row available in the 2d color array
     private void updateColorList(Color[] colorlist){
         for (int i = 0; i < colors.length; i++){
             colors[i][getRow()] = colorlist[i];
@@ -240,6 +241,12 @@ public class Frame{
         }
     }
 
+    //override generate word for the other modes with different length words
+    private String generateWord() throws FileNotFoundException {
+        ArrayList<String> wordsList = sortWords();
+        return wordsList.get(new Random().nextInt(wordsList.size() - 1));
+    }
+
     //override sortWords for the other modes with different length words
     private ArrayList<String> sortWords() throws FileNotFoundException {
         Scanner s = new Scanner(new File("data/wordsLengthFive.txt"));
@@ -253,9 +260,43 @@ public class Frame{
         return list;
     }
 
-    //override generate word for the other modes with different length words
-    private String generateWord() throws FileNotFoundException {
-        ArrayList<String> wordsList = sortWords();
-        return wordsList.get(new Random().nextInt(wordsList.size() - 1));
-    }
+//    private Color[] guessWordColors(String answer, String guess) {
+//        Color[] listOfColors = new Color[answer.length()];
+//
+//        if (guess.length() != answer.length() || answer.isEmpty()) {
+//            return listOfColors;
+//        }
+//    for (int i = 0; i < answer.length(); i++) {
+//        if (answer.charAt(i) == guess.charAt(i)) {
+//            listOfColors[i] = Color.GREEN;
+//        } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
+//            answer = answer.substring(0, i) + " " + answer.substring(i+1);
+//            listOfColors[i] = Color.YELLOW;
+//        } else {
+//            listOfColors[i] = Color.RED;
+//        }
+//    }
+//
+//        return listOfColors;
+//}
+    //moved the main function to here bc i couldnt find a reason why overriding it was a good idea
+     private Color[] guessWordColors(String answer, String guess) {
+        Color[] listOfColors = new Color[answer.length()];
+
+        if (guess.length() != answer.length() || answer.isEmpty()) {
+            return listOfColors;
+        }
+
+        for (int i = 0; i < answer.length(); i++) {
+            if (answer.charAt(i) == guess.charAt(i)) {
+                    listOfColors[i] = Color.GREEN;
+                } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
+                    answer = answer.substring(0, i) + " " + answer.substring(i+1);
+                    listOfColors[i] = Color.YELLOW;
+                } else {
+                    listOfColors[i] = Color.RED;
+                }
+            }
+            return listOfColors;
+        }
 }
