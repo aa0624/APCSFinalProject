@@ -10,7 +10,7 @@ import java.util.Random;
 import java.util.Scanner;
 import java.util.stream.Stream;
 
-public class Frame{
+public class Grid{
     private final String answer;
     private char[][] spaces;
 
@@ -20,14 +20,13 @@ public class Frame{
 
     private JPanel word1Grid, word2Grid, word3Grid, word4Grid, word5Grid, word6Grid, bottomtextpanel, allwordGrid;
 
-    private JLabel letter1word1, letter2word1, letter3word1, letter4word1, letter5word1, letter1word2, letter2word2, letter3word2, letter4word2, letter5word2, letter1word3, letter2word3, letter3word3, letter4word3, letter5word3, letter1word4, letter2word4, letter3word4, letter4word4, letter5word4, letter1word5, letter2word5, letter3word5, letter4word5, letter5word5, letter1word6, letter2word6, letter3word6, letter4word6, letter5word6;
-
+    private JPanel[] wordGrid;
     private int row, col,currentRow;
 
     private JLabel[][] letters;
 
 
-    public Frame(int row, String answer){
+    public Grid(int row, String answer){
         this.row = row;
         this.col = answer.length();
         this.answer = answer;
@@ -53,6 +52,11 @@ public class Frame{
 
         }
 
+        for (int i=0; i<letters.length; i++) {
+            for (int j=0; j<letters.length; j++) {
+//                word1Grid.add
+            }
+        }
         word1Grid.add(letters[0][0]);
         word1Grid.add(letters[0][1]);
         word1Grid.add(letters[0][2]);
@@ -144,10 +148,12 @@ public class Frame{
     // compares word to answer and updates both 2d arrays with calls to other functions
     public void compareToAnswer(String answer, String guess) {
         Color[] listOfColors = new Color[answer.length()];
+        int greenCounter=0;
         for (int i = 0; i < answer.length(); i++) {
             if (answer.charAt(i) == guess.charAt(i)) {
                 answer = answer.substring(0, i) + " " + answer.substring(i+1);
                 listOfColors[i] = Color.GREEN;
+                greenCounter++;
             } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
                 answer = answer.substring(0, i) + " " + answer.substring(i+1);
                 listOfColors[i] = Color.YELLOW;
@@ -155,12 +161,19 @@ public class Frame{
                 listOfColors[i] = Color.RED;
             }
         }
+        if (greenCounter==guess.length()) {
+            congratulate();
+        }
         updateColorList(listOfColors);
         updateWordShown(guess);
         updateLetters(guess);
         currentRow++;
         frame.repaint();
     }
+
+   private void congratulate() {
+
+   }
 
     //takes a list of colors and adds it to the next row available in the 2d color array
     private void updateColorList(Color[] colorlist){
