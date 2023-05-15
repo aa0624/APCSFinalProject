@@ -22,16 +22,18 @@ public class Frame{
 
     private JLabel letter1word1, letter2word1, letter3word1, letter4word1, letter5word1, letter1word2, letter2word2, letter3word2, letter4word2, letter5word2, letter1word3, letter2word3, letter3word3, letter4word3, letter5word3, letter1word4, letter2word4, letter3word4, letter4word4, letter5word4, letter1word5, letter2word5, letter3word5, letter4word5, letter5word5, letter1word6, letter2word6, letter3word6, letter4word6, letter5word6;
 
+    private int row, col,currentRow;
 
     private JLabel[][] letters;
 
 
-    public Frame(){
-        //dont need row and col because answer.length is the width and it is always 6 down
-        answer = "APPLE";//GenerateWord().toUppercase() temporary until u bozos fix generateWord()
-        spaces = new char[answer.length()][6];
-        colors = new Color[answer.length()][6];
-        letters = new JLabel[answer.length()][6];
+    public Frame(int row, String answer){
+        this.row = row;
+        this.col = answer.length();
+        this.answer = answer;
+        spaces = new char[row][col];
+        colors = new Color[row][col];
+        letters = new JLabel[row][col];
 
         // Creates Frame
         frame = new JFrame("Wordle");
@@ -133,8 +135,7 @@ public class Frame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (answerField.getText().length() == answer.length()){
-                    System.out.println("test1");
-                    compareToAnswer(answer, answerField.getText());
+                    compareToAnswer(answer, answerField.getText().toUpperCase());
                 }
             }
         });
@@ -155,130 +156,33 @@ public class Frame{
             }
         }
         updateColorList(listOfColors);
-        System.out.println("test3");
         updateWordShown(guess);
-        System.out.println("test4");
         updateLetters(guess);
-        System.out.println("test2");
+        currentRow++;
         frame.repaint();
     }
-    //gets next empty row
-    public int getRow() {
-        int rownum = 0;
-        int whilehelp = 0;
-        while (whilehelp == 0 || rownum < colors[0].length) {
-            if (colors[0][rownum] != null) {
-                rownum++;
-            } else {
-                whilehelp++;
-            }
-        }
-        System.out.println("test0");
 
-        return rownum;
-    }
     //takes a list of colors and adds it to the next row available in the 2d color array
     private void updateColorList(Color[] colorlist){
-        for (int i = 0; i < colors.length; i++){
-            colors[i][getRow()] = colorlist[i];
+        for (int i = 0; i < colors[0].length; i++){
+            colors[currentRow][i] = colorlist[i];
         }
     }
     //updates the letters graphic (I couldn't think of a better way to do this so if you do just change it bc this is ugly)
     private void updateLetters(String guess){
-        if (getRow() == 0){
-            letter1word1.setText(String.valueOf(guess.charAt(0)));
-            letter1word1.setForeground(colors[0][0]);
-            letter2word1.setText(String.valueOf(guess.charAt(1)));
-            letter2word1.setForeground(colors[0][1]);
-            letter3word1.setText(String.valueOf(guess.charAt(2)));
-            letter3word1.setForeground(colors[0][2]);
-            letter4word1.setText(String.valueOf(guess.charAt(3)));
-            letter4word1.setForeground(colors[0][3]);
-            letter5word1.setText(String.valueOf(guess.charAt(4)));
-            letter5word1.setForeground(colors[0][4]);
-        } else if (getRow() == 1){
-            letter1word2.setText(String.valueOf(guess.charAt(0)));
-            letter1word2.setForeground(colors[1][0]);
-            letter2word2.setText(String.valueOf(guess.charAt(1)));
-            letter2word2.setForeground(colors[1][1]);
-            letter3word2.setText(String.valueOf(guess.charAt(2)));
-            letter3word2.setForeground(colors[1][2]);
-            letter4word2.setText(String.valueOf(guess.charAt(3)));
-            letter4word2.setForeground(colors[1][3]);
-            letter5word2.setText(String.valueOf(guess.charAt(4)));
-            letter5word2.setForeground(colors[1][4]);
-        } else if (getRow() == 2){
-            letter1word3.setText(String.valueOf(guess.charAt(0)));
-            letter1word3.setForeground(colors[2][0]);
-            letter2word3.setText(String.valueOf(guess.charAt(1)));
-            letter2word3.setForeground(colors[2][1]);
-            letter3word3.setText(String.valueOf(guess.charAt(2)));
-            letter3word3.setForeground(colors[2][2]);
-            letter4word3.setText(String.valueOf(guess.charAt(3)));
-            letter4word3.setForeground(colors[2][3]);
-            letter5word3.setText(String.valueOf(guess.charAt(4)));
-            letter5word3.setForeground(colors[2][4]);
-        } else if (getRow() == 3){
-            letter1word4.setText(String.valueOf(guess.charAt(0)));
-            letter1word4.setForeground(colors[3][0]);
-            letter2word4.setText(String.valueOf(guess.charAt(1)));
-            letter2word4.setForeground(colors[3][1]);
-            letter3word4.setText(String.valueOf(guess.charAt(2)));
-            letter3word4.setForeground(colors[3][2]);
-            letter4word4.setText(String.valueOf(guess.charAt(3)));
-            letter4word4.setForeground(colors[3][3]);
-            letter5word4.setText(String.valueOf(guess.charAt(4)));
-            letter5word4.setForeground(colors[3][4]);
-        } else if (getRow() == 4){
-            letter1word5.setText(String.valueOf(guess.charAt(0)));
-            letter1word5.setForeground(colors[4][0]);
-            letter2word5.setText(String.valueOf(guess.charAt(1)));
-            letter2word5.setForeground(colors[4][1]);
-            letter3word5.setText(String.valueOf(guess.charAt(2)));
-            letter3word5.setForeground(colors[4][2]);
-            letter4word5.setText(String.valueOf(guess.charAt(3)));
-            letter4word5.setForeground(colors[4][3]);
-            letter5word5.setText(String.valueOf(guess.charAt(4)));
-            letter5word5.setForeground(colors[4][4]);
-        } else {
-            letter1word6.setText(String.valueOf(guess.charAt(0)));
-            letter1word6.setForeground(colors[5][0]);
-            letter2word6.setText(String.valueOf(guess.charAt(1)));
-            letter2word6.setForeground(colors[5][1]);
-            letter3word6.setText(String.valueOf(guess.charAt(2)));
-            letter3word6.setForeground(colors[5][2]);
-            letter4word6.setText(String.valueOf(guess.charAt(3)));
-            letter4word6.setForeground(colors[5][3]);
-            letter5word6.setText(String.valueOf(guess.charAt(4)));
-            letter5word6.setForeground(colors[5][4]);
+        for (int i = 0; i<col; i++){
+            letters[currentRow][i].setText(String.valueOf(guess.charAt(i)));
+            letters[currentRow][i].setForeground(colors[currentRow][i]);
         }
     }
     // updates the letters in the 2d Array
     private void updateWordShown(String guess){
-        for (int i = 0; i < spaces.length; i++){
-            guess = guess.toUpperCase();
-            spaces[i][getRow()] = guess.charAt(i);
+        for (int i = 0; i < spaces[0].length; i++){
+            spaces[currentRow][i] = guess.charAt(i);
         }
     }
 
-    //override generate word for the other modes with different length words
-    private String generateWord() throws FileNotFoundException {
-        ArrayList<String> wordsList = sortWords();
-        return wordsList.get(new Random().nextInt(wordsList.size() - 1));
-    }
 
-    //override sortWords for the other modes with different length words
-    private ArrayList<String> sortWords() throws FileNotFoundException {
-        Scanner s = new Scanner(new File("data/wordsLengthFive.txt"));
-        ArrayList<String> list = new ArrayList<>();
-
-        while (s.hasNext()) {
-            list.add(s.next());
-        }
-
-        s.close();
-        return list;
-    }
 
 //    private Color[] guessWordColors(String answer, String guess) {
 //        Color[] listOfColors = new Color[answer.length()];
