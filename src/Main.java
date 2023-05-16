@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         //Frame n = new Frame(6,generateWord());
-        Grid n = new Grid(6,"APPLE");
+        Grid n = new Grid(6,generateWord());
     }
 
 
