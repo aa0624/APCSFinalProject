@@ -85,19 +85,20 @@ public class Grid {
         enterButton.addActionListener(e -> {
             if (answerField.getText().length() == answer.length()) {
                 compareToAnswer(answer, answerField.getText().toUpperCase());
+                answerField.setText(" ");
             }
         });
     }
 
     // compares word to answer and updates both 2d arrays with calls to other functions
     public void compareToAnswer(String answer, String guess) {
+        int greencount = 0;
         Color[] listOfColors = new Color[answer.length()];
-        int greenCounter = 0;
         for (int i = 0; i < answer.length(); i++) {
             if (answer.charAt(i) == guess.charAt(i)) {
                 answer = answer.substring(0, i) + " " + answer.substring(i + 1);
                 listOfColors[i] = Color.GREEN;
-                greenCounter++;
+                greencount++;
             } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
                 answer = answer.substring(0, i) + " " + answer.substring(i + 1);
                 listOfColors[i] = Color.YELLOW;
@@ -105,7 +106,7 @@ public class Grid {
                 listOfColors[i] = Color.RED;
             }
         }
-        if (greenCounter == guess.length()) {
+        if (greencount == answer.length()) {
             congratulate();
         }
         updateColorList(listOfColors);
