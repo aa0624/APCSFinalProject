@@ -61,8 +61,8 @@ public class Grid {
 
         for (int i = 0; i < wordGrid.length; i++) {
             for (int j = 0; j < letters[0].length; j++) {
-                var cock = letters[i][j];
-                wordGrid[i].add(cock);
+                var label = letters[i][j];
+                wordGrid[i].add(label);
             }
             allwordGrid.add(wordGrid[i]);
         }
