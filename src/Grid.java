@@ -12,12 +12,6 @@ public class Grid {
 
     private final JFrame frame;
 
-    private JPanel word1Grid;
-    private JPanel word2Grid;
-    private JPanel word3Grid;
-    private JPanel word4Grid;
-    private JPanel word5Grid;
-    private JPanel word6Grid;
     private final JPanel bottomtextpanel;
     private final JPanel allwordGrid;
 
@@ -92,13 +86,13 @@ public class Grid {
 
     // compares word to answer and updates both 2d arrays with calls to other functions
     public void compareToAnswer(String answer, String guess) {
-        int greencount = 0;
+        int greenCount = 0;
         Color[] listOfColors = new Color[answer.length()];
         for (int i = 0; i < answer.length(); i++) {
             if (answer.charAt(i) == guess.charAt(i)) {
                 answer = answer.substring(0, i) + " " + answer.substring(i + 1);
                 listOfColors[i] = Color.GREEN;
-                greencount++;
+                greenCount++;
             } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
                 answer = answer.substring(0, i) + " " + answer.substring(i + 1);
                 listOfColors[i] = Color.YELLOW;
@@ -106,7 +100,7 @@ public class Grid {
                 listOfColors[i] = Color.RED;
             }
         }
-        if (greencount == answer.length()) {
+        if (greenCount == answer.length()) {
             congratulate();
         }
         updateColorList(listOfColors);
@@ -140,26 +134,6 @@ public class Grid {
         }
     }
 
-
-    //    private Color[] guessWordColors(String answer, String guess) {
-//        Color[] listOfColors = new Color[answer.length()];
-//
-//        if (guess.length() != answer.length() || answer.isEmpty()) {
-//            return listOfColors;
-//        }
-//    for (int i = 0; i < answer.length(); i++) {
-//        if (answer.charAt(i) == guess.charAt(i)) {
-//            listOfColors[i] = Color.GREEN;
-//        } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
-//            answer = answer.substring(0, i) + " " + answer.substring(i+1);
-//            listOfColors[i] = Color.YELLOW;
-//        } else {
-//            listOfColors[i] = Color.RED;
-//        }
-//    }
-//
-//        return listOfColors;
-//}
     //moved the main function to here bc i couldnt find a reason why overriding it was a good idea
     private Color[] guessWordColors(String answer, String guess) {
         Color[] listOfColors = new Color[answer.length()];
