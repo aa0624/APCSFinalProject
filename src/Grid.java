@@ -1,32 +1,35 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Random;
-import java.util.Scanner;
-import java.util.stream.Stream;
+import java.util.Arrays;
 
-public class Grid{
+public class Grid {
     private final String answer;
-    private char[][] spaces;
+    private final char[][] spaces;
 
-    private Color[][] colors;
+    private final Color[][] colors;
 
-    private JFrame frame;
+    private final JFrame frame;
 
-    private JPanel word1Grid, word2Grid, word3Grid, word4Grid, word5Grid, word6Grid, bottomtextpanel, allwordGrid;
+    private JPanel word1Grid;
+    private JPanel word2Grid;
+    private JPanel word3Grid;
+    private JPanel word4Grid;
+    private JPanel word5Grid;
+    private JPanel word6Grid;
+    private final JPanel bottomtextpanel;
+    private final JPanel allwordGrid;
 
-    private JPanel[] wordGrid;
-    private int row, col,currentRow;
+    private final JPanel[] wordGrid;
+    private final int row;
+    private final int col;
+    private int currentRow;
 
-    private JLabel[][] letters;
+    private final JLabel[][] letters;
 
 
-    public Grid(int row, String answer){
+    public Grid(int row, String answer) {
         this.row = row;
         this.col = answer.length();
         this.answer = answer;
@@ -41,84 +44,28 @@ public class Grid{
 
         allwordGrid = new JPanel();
         allwordGrid.setLayout(new BoxLayout(allwordGrid, BoxLayout.Y_AXIS));
+
         //Creates panel for word 1 which will hold all the letters
-        word1Grid = new JPanel();
-        word1Grid.setLayout(new BoxLayout(word1Grid, BoxLayout.X_AXIS));
+        wordGrid = new JPanel[row];
+        for (int i = 0; i < wordGrid.length; i++) {
+            wordGrid[i] = new JPanel();
+            wordGrid[i].setLayout(new BoxLayout(wordGrid[i], BoxLayout.X_AXIS));
+        }
+
         //Creates the letter holders for word 1
-        for (int i = 0; i<letters.length; i++){
-            for (int j = 0; j<letters[0].length; j++){
-                letters [i][j] = new JLabel(" ");
-            }
-
-        }
-
-        for (int i=0; i<letters.length; i++) {
-            for (int j=0; j<letters.length; j++) {
-//                word1Grid.add
+        for (int i = 0; i < letters.length; i++) {
+            for (int j = 0; j < letters[0].length; j++) {
+                letters[i][j] = new JLabel(" ");
             }
         }
-        word1Grid.add(letters[0][0]);
-        word1Grid.add(letters[0][1]);
-        word1Grid.add(letters[0][2]);
-        word1Grid.add(letters[0][3]);
-        word1Grid.add(letters[0][4]);
-        //adds word one to frame
-        allwordGrid.add(word1Grid);
-        // Creates Panel for word 2
-        word2Grid = new JPanel();
-        word2Grid.setLayout(new BoxLayout(word2Grid, BoxLayout.X_AXIS));
-        //Creates the letter holders for word 2
-        word2Grid.add(letters[1][0]);
-        word2Grid.add(letters[1][1]);
-        word2Grid.add(letters[1][2]);
-        word2Grid.add(letters[1][3]);
-        word2Grid.add(letters[1][4]);
-        //adds word two to frame
-        allwordGrid.add(word2Grid);
-        // Creates Panel for word 3
-        word3Grid = new JPanel();
-        word3Grid.setLayout(new BoxLayout(word3Grid, BoxLayout.X_AXIS));
-        //Creates the letter holders for word 3
-        word3Grid.add(letters[2][0]);
-        word3Grid.add(letters[2][1]);
-        word3Grid.add(letters[2][2]);
-        word3Grid.add(letters[2][3]);
-        word3Grid.add(letters[2][4]);
-        //adds word three to frame
-        allwordGrid.add(word3Grid);
-        // Creates Panel for word 4
-        word4Grid = new JPanel();
-        word4Grid.setLayout(new BoxLayout(word4Grid, BoxLayout.X_AXIS));
-        //Creates the letter holders for word 4
-        word4Grid.add(letters[3][0]);
-        word4Grid.add(letters[3][1]);
-        word4Grid.add(letters[3][2]);
-        word4Grid.add(letters[3][3]);
-        word4Grid.add(letters[3][4]);
-        //adds word four to frame
-        allwordGrid.add(word4Grid);
-        // Creates Panel for word 5
-        word5Grid = new JPanel();
-        word5Grid.setLayout(new BoxLayout(word5Grid, BoxLayout.X_AXIS));
-        //Creates the letter holders for word 5
-        word5Grid.add(letters[4][0]);
-        word5Grid.add(letters[4][1]);
-        word5Grid.add(letters[4][2]);
-        word5Grid.add(letters[4][3]);
-        word5Grid.add(letters[4][4]);
-        //adds word five to frame
-        allwordGrid.add(word5Grid);
-        // Creates Panel for word 6
-        word6Grid = new JPanel();
-        word6Grid.setLayout(new BoxLayout(word6Grid, BoxLayout.X_AXIS));
-        //Creates the letter holders for word 6
-        word6Grid.add(letters[5][0]);
-        word6Grid.add(letters[5][1]);
-        word6Grid.add(letters[5][2]);
-        word6Grid.add(letters[5][3]);
-        word6Grid.add(letters[5][4]);
-        //adds word six to frame
-        allwordGrid.add(word6Grid);
+
+        for (int i = 0; i < wordGrid.length; i++) {
+            for (int j = 0; j < letters[0].length; j++) {
+                var cock = letters[i][j];
+                wordGrid[i].add(cock);
+            }
+            allwordGrid.add(wordGrid[i]);
+        }
 
         frame.add(allwordGrid, BorderLayout.NORTH);
 
@@ -129,39 +76,37 @@ public class Grid{
         JTextField answerField = new JTextField("", 10);
         bottomtextpanel.add(answerField, BorderLayout.WEST);
 
-        JButton enterbutton = new JButton("Enter");
-        bottomtextpanel.add(enterbutton, BorderLayout.EAST);
+        JButton enterButton = new JButton("Enter");
+        bottomtextpanel.add(enterButton, BorderLayout.EAST);
 
         frame.pack();
         frame.setVisible(true);
         // action button function specifically for the enter button
-        enterbutton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (answerField.getText().length() == answer.length()){
-                    compareToAnswer(answer, answerField.getText().toUpperCase());
-                }
+        enterButton.addActionListener(e -> {
+            if (answerField.getText().length() == answer.length()) {
+                compareToAnswer(answer, answerField.getText().toUpperCase());
+                answerField.setText(" ");
             }
         });
     }
 
     // compares word to answer and updates both 2d arrays with calls to other functions
     public void compareToAnswer(String answer, String guess) {
+        int greencount = 0;
         Color[] listOfColors = new Color[answer.length()];
-        int greenCounter=0;
         for (int i = 0; i < answer.length(); i++) {
             if (answer.charAt(i) == guess.charAt(i)) {
-                answer = answer.substring(0, i) + " " + answer.substring(i+1);
+                answer = answer.substring(0, i) + " " + answer.substring(i + 1);
                 listOfColors[i] = Color.GREEN;
-                greenCounter++;
+                greencount++;
             } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
-                answer = answer.substring(0, i) + " " + answer.substring(i+1);
+                answer = answer.substring(0, i) + " " + answer.substring(i + 1);
                 listOfColors[i] = Color.YELLOW;
             } else {
                 listOfColors[i] = Color.RED;
             }
         }
-        if (greenCounter==guess.length()) {
+        if (greencount == answer.length()) {
             congratulate();
         }
         updateColorList(listOfColors);
@@ -171,33 +116,32 @@ public class Grid{
         frame.repaint();
     }
 
-   private void congratulate() {
+    private void congratulate() {
 
-   }
+    }
 
     //takes a list of colors and adds it to the next row available in the 2d color array
-    private void updateColorList(Color[] colorlist){
-        for (int i = 0; i < colors[0].length; i++){
-            colors[currentRow][i] = colorlist[i];
-        }
+    private void updateColorList(Color[] colorlist) {
+        System.arraycopy(colorlist, 0, colors[currentRow], 0, colors[0].length);
     }
+
     //updates the letters graphic (I couldn't think of a better way to do this so if you do just change it bc this is ugly)
-    private void updateLetters(String guess){
-        for (int i = 0; i<col; i++){
+    private void updateLetters(String guess) {
+        for (int i = 0; i < col; i++) {
             letters[currentRow][i].setText(String.valueOf(guess.charAt(i)));
             letters[currentRow][i].setForeground(colors[currentRow][i]);
         }
     }
+
     // updates the letters in the 2d Array
-    private void updateWordShown(String guess){
-        for (int i = 0; i < spaces[0].length; i++){
+    private void updateWordShown(String guess) {
+        for (int i = 0; i < spaces[0].length; i++) {
             spaces[currentRow][i] = guess.charAt(i);
         }
     }
 
 
-
-//    private Color[] guessWordColors(String answer, String guess) {
+    //    private Color[] guessWordColors(String answer, String guess) {
 //        Color[] listOfColors = new Color[answer.length()];
 //
 //        if (guess.length() != answer.length() || answer.isEmpty()) {
@@ -217,7 +161,7 @@ public class Grid{
 //        return listOfColors;
 //}
     //moved the main function to here bc i couldnt find a reason why overriding it was a good idea
-     private Color[] guessWordColors(String answer, String guess) {
+    private Color[] guessWordColors(String answer, String guess) {
         Color[] listOfColors = new Color[answer.length()];
 
         if (guess.length() != answer.length() || answer.isEmpty()) {
@@ -226,14 +170,14 @@ public class Grid{
 
         for (int i = 0; i < answer.length(); i++) {
             if (answer.charAt(i) == guess.charAt(i)) {
-                    listOfColors[i] = Color.GREEN;
-                } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
-                    answer = answer.substring(0, i) + " " + answer.substring(i+1);
-                    listOfColors[i] = Color.YELLOW;
-                } else {
-                    listOfColors[i] = Color.RED;
-                }
+                listOfColors[i] = Color.GREEN;
+            } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
+                answer = answer.substring(0, i) + " " + answer.substring(i + 1);
+                listOfColors[i] = Color.YELLOW;
+            } else {
+                listOfColors[i] = Color.RED;
             }
-            return listOfColors;
         }
+        return listOfColors;
+    }
 }

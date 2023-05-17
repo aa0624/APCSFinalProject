@@ -48,13 +48,13 @@ public class AnswerChecker {
 
         // compares word to answer and updates both 2d arrays with calls to other functions
         public void compareToAnswer(String answer, String guess) {
+            int greencount = 0;
             Color[] listOfColors = new Color[answer.length()];
-            int greenCounter=0;
             for (int i = 0; i < answer.length(); i++) {
                 if (answer.charAt(i) == guess.charAt(i)) {
                     answer = answer.substring(0, i) + " " + answer.substring(i+1);
+                    greencount++;
                     listOfColors[i] = Color.GREEN;
-                    greenCounter++;
                 } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
                     answer = answer.substring(0, i) + " " + answer.substring(i+1);
                     listOfColors[i] = Color.YELLOW;
@@ -63,7 +63,7 @@ public class AnswerChecker {
                 }
             }
             finalText="you lose!";
-            if (greenCounter==guess.length()) {
+            if (greencount == answer.length()) {
                 finalText = "You win!";
             }
             if (currentRow == row-1) {
