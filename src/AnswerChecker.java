@@ -87,26 +87,6 @@ public class AnswerChecker {
         }
     }
 
-
-    //    private Color[] guessWordColors(String answer, String guess) {
-//        Color[] listOfColors = new Color[answer.length()];
-//
-//        if (guess.length() != answer.length() || answer.isEmpty()) {
-//            return listOfColors;
-//        }
-//    for (int i = 0; i < answer.length(); i++) {
-//        if (answer.charAt(i) == guess.charAt(i)) {
-//            listOfColors[i] = Color.GREEN;
-//        } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
-//            answer = answer.substring(0, i) + " " + answer.substring(i+1);
-//            listOfColors[i] = Color.YELLOW;
-//        } else {
-//            listOfColors[i] = Color.RED;
-//        }
-//    }
-//
-//        return listOfColors;
-//}
     //probably fixed
     private Color[] guessWordColors(String answer, String guess) {
         Color[] listOfColors = new Color[answer.length()];

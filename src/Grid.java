@@ -1,8 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Arrays;
 
 public class Grid {
     private final String answer;
@@ -69,24 +66,3 @@ public class Grid {
         // action button function specifically for the enter button
     }
 }
-//    //moved the main function to here bc i couldnt find a reason why overriding it was a good idea
-//    private Color[] guessWordColors(String answer, String guess) {
-//        Color[] listOfColors = new Color[answer.length()];
-//
-//        if (guess.length() != answer.length() || answer.isEmpty()) {
-//            return listOfColors;
-//        }
-//
-//        for (int i = 0; i < answer.length(); i++) {
-//            if (answer.charAt(i) == guess.charAt(i)) {
-//                listOfColors[i] = Color.GREEN;
-//            } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
-//                answer = answer.substring(0, i) + " " + answer.substring(i + 1);
-//                listOfColors[i] = Color.YELLOW;
-//            } else {
-//                listOfColors[i] = Color.RED;
-//            }
-//        }
-//        return listOfColors;
-//    }
-//}
