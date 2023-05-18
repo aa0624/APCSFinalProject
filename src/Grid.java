@@ -10,7 +10,15 @@ public class Grid {
 
     private final Color[][] colors;
 
-    private final JFrame frame;
+    private final JFrame endFrame;
+
+    private final JPanel frame;
+
+    private final Color customYellow;
+
+    private final Color customGreen;
+
+    private final Color customGrey;
 
     private JPanel word1Grid;
     private JPanel word2Grid;
@@ -37,10 +45,18 @@ public class Grid {
         colors = new Color[row][col];
         letters = new JLabel[row][col];
 
+        //creates custom colors
+        customGreen = new Color	(108,169,101);
+        customYellow = new Color(200,182,83);
+        customGrey = new Color(120,124,127);
+
+
         // Creates Frame
-        frame = new JFrame("Wordle");
+        endFrame = new JFrame("Wordle");
+        endFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame = new JPanel();
         frame.setLayout(new BorderLayout());
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
 
         allwordGrid = new JPanel();
         allwordGrid.setLayout(new BoxLayout(allwordGrid, BoxLayout.Y_AXIS));
@@ -71,7 +87,7 @@ public class Grid {
 
         bottomtextpanel = new JPanel();
         bottomtextpanel.setLayout(new BorderLayout());
-        frame.add(bottomtextpanel, BorderLayout.SOUTH);
+        endFrame.add(bottomtextpanel, BorderLayout.SOUTH);
 
         JTextField answerField = new JTextField("", 10);
         bottomtextpanel.add(answerField, BorderLayout.WEST);
@@ -79,8 +95,10 @@ public class Grid {
         JButton enterButton = new JButton("Enter");
         bottomtextpanel.add(enterButton, BorderLayout.EAST);
 
-        frame.pack();
-        frame.setVisible(true);
+        endFrame.add(frame, BorderLayout.NORTH);
+
+        endFrame.pack();
+        endFrame.setVisible(true);
         // action button function specifically for the enter button
         enterButton.addActionListener(e -> {
             if (answerField.getText().length() == answer.length()) {
@@ -97,13 +115,13 @@ public class Grid {
         for (int i = 0; i < answer.length(); i++) {
             if (answer.charAt(i) == guess.charAt(i)) {
                 answer = answer.substring(0, i) + " " + answer.substring(i + 1);
-                listOfColors[i] = Color.GREEN;
+                listOfColors[i] = customGreen;
                 greencount++;
             } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
                 answer = answer.substring(0, i) + " " + answer.substring(i + 1);
-                listOfColors[i] = Color.YELLOW;
+                listOfColors[i] = customYellow;
             } else {
-                listOfColors[i] = Color.RED;
+                listOfColors[i] = customGrey;
             }
         }
         if (greencount == answer.length()) {
@@ -140,6 +158,10 @@ public class Grid {
         }
     }
 
+    public JPanel getPanelNoFrame(){
+        return frame;
+    }
+
 
     //    private Color[] guessWordColors(String answer, String guess) {
 //        Color[] listOfColors = new Color[answer.length()];
@@ -170,12 +192,12 @@ public class Grid {
 
         for (int i = 0; i < answer.length(); i++) {
             if (answer.charAt(i) == guess.charAt(i)) {
-                listOfColors[i] = Color.GREEN;
+                listOfColors[i] = customGreen;
             } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
                 answer = answer.substring(0, i) + " " + answer.substring(i + 1);
-                listOfColors[i] = Color.YELLOW;
+                listOfColors[i] = customYellow;
             } else {
-                listOfColors[i] = Color.RED;
+                listOfColors[i] = customGrey;
             }
         }
         return listOfColors;
