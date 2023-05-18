@@ -17,9 +17,7 @@ public class MultiGrid{
             gameGrids[i] = new Grid(6 * numofgrids,Main.generateWord());
             frame.add(gameGrids[i].getPanelNoFrame());
         }
-        bottomtextpanel = new JPanel();
-        bottomtextpanel.setLayout(new BorderLayout());
-        frame.add(bottomtextpanel, BorderLayout.SOUTH);
+        //AnswerChecker a = new AnswerChecker();
         frame.pack();
         frame.setVisible(true);
     }
