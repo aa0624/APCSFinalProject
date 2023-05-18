@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) throws FileNotFoundException {
         //Frame n = new Frame(6,generateWord());
         //Frame n = new Frame(6,"APPLE");
-        MultiGrid n = new MultiGrid(4);
+        MultiGrid n = new MultiGrid( 4);
     }
 
 
