@@ -5,149 +5,109 @@ import java.awt.event.ActionListener;
 
 public class AnswerChecker {
 
-        private final Color customYellow;
-        private final Color customGreen;
-        private final Color customGrey;
-        private String answer;
-        private char[][] spaces;
-
-        private Color[][] colors;
-
-        private JPanel bottomtextpanel, finalPanel;
-
-        private int row, col, currentRow;
-
-        private String finalText;
-        private JLabel[][] letters;
+    private final Color customYellow;
+    private final Color customGreen;
+    private final Color customGrey;
 
 
-        public AnswerChecker(int row, String answer, char[][] spaces, Color[][] colors){
-            this.row = row;
-            this.col = answer.length();
-            this.answer = answer;
-            this.spaces = spaces;
-            this.colors = colors;
+    private JPanel bottomtextpanel, finalPanel;
 
-            customGreen = new Color	(108,169,101);
-            customYellow = new Color(200,182,83);
-            customGrey = new Color(120,124,127);
+    private int row, currentRow;
 
-            bottomtextpanel = new JPanel();
-            bottomtextpanel.setLayout(new BorderLayout());
 
-            JTextField answerField = new JTextField("", 10);
-            bottomtextpanel.add(answerField, BorderLayout.WEST);
+    public AnswerChecker(int row, Grid[] grids) {
+        this.row = row;
 
-            JButton enterbutton = new JButton("Enter");
-            bottomtextpanel.add(enterbutton, BorderLayout.EAST);
-            // action button function specifically for the enter button
-            enterbutton.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    if (answerField.getText().length() == answer.length()){
-                        compareToAnswer(answer, answerField.getText().toUpperCase());
+        customGreen = new Color(108, 169, 101);
+        customYellow = new Color(200, 182, 83);
+        customGrey = new Color(120, 124, 127);
+
+        bottomtextpanel = new JPanel();
+        bottomtextpanel.setLayout(new BorderLayout());
+
+        finalPanel = new JPanel();
+
+        JTextField answerField = new JTextField("", 10);
+        bottomtextpanel.add(answerField, BorderLayout.WEST);
+
+        JButton enterbutton = new JButton("Enter");
+        bottomtextpanel.add(enterbutton, BorderLayout.EAST);
+        // action button function specifically for the enter button
+        enterbutton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                for (Grid g : grids) {
+                    if (answerField.getText().length() == g.getAnswer().length()) {
+
+                        compareToAnswer(g.getAnswer(), answerField.getText().toUpperCase(), g);
                     }
                 }
-            });
-        }
-
-        // compares word to answer and updates both 2d arrays with calls to other functions
-        public void compareToAnswer(String answer, String guess) {
-            int greencount = 0;
-            Color[] listOfColors = new Color[answer.length()];
-            for (int i = 0; i < answer.length(); i++) {
-                if (answer.charAt(i) == guess.charAt(i)) {
-                    answer = answer.substring(0, i) + " " + answer.substring(i+1);
-                    greencount++;
-                    listOfColors[i] = customGreen;
-                } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
-                    answer = answer.substring(0, i) + " " + answer.substring(i+1);
-                    listOfColors[i] = customYellow;
-                } else {
-                    listOfColors[i] = customGrey;
-                }
+                currentRow++;
             }
-            finalText="you lose!";
-            if (greencount == answer.length()) {
-                finalText = "You win!";
-            }
-            if (currentRow == row-1) {
-                congratulate();
-            }
-            updateColorList(listOfColors);
-            updateWordShown(guess);
-            updateLetters(guess);
-            currentRow++;
-        }
+        });
+    }
 
-        private void congratulate() {
-            finalPanel.add(new JLabel (finalText));
-        }
-
-        public JPanel getFinalPanel() {
-            return finalPanel;
-        }
-
-        //takes a list of colors and adds it to the next row available in the 2d color array
-        private void updateColorList(Color[] colorlist){
-            for (int i = 0; i < colors[0].length; i++){
-                colors[currentRow][i] = colorlist[i];
+    // compares word to answer and updates both 2d arrays with calls to other functions
+    //get answer anbd final text
+    public void compareToAnswer(String answer, String guess, Grid g) {
+        int greencount = 0;
+        Color[] listOfColors = new Color[answer.length()];
+        for (int i = 0; i < answer.length(); i++) {
+            if (answer.charAt(i) == guess.charAt(i)) {
+                answer = answer.substring(0, i) + " " + answer.substring(i+1);
+                listOfColors[i] = Color.GREEN;
+                greencount++;
+            } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
+                answer = answer.substring(0, i) + " " + answer.substring(i+1);
+                listOfColors[i] = Color.YELLOW;
+            } else {
+                listOfColors[i] = Color.RED;
             }
         }
-        private void updateLetters(String guess){
-            for (int i = 0; i<col; i++){
-                letters[currentRow][i].setText(String.valueOf(guess.charAt(i)));
-                letters[currentRow][i].setForeground(colors[currentRow][i]);
-            }
+        if (greencount == answer.length()) {
+            g.setFinalText("you win");
+            congratulate(g);
+        } else if (currentRow == row - 1) {
+            congratulate(g);
         }
-        // updates the letters in the 2d Array
-        private void updateWordShown(String guess){
-            for (int i = 0; i < spaces[0].length; i++){
-                spaces[currentRow][i] = guess.charAt(i);
-            }
-        }
+        updateColorList(listOfColors, g);
+        updateWordShown(guess, g);
+        updateLetters(guess, g);
+    }
 
+    private void congratulate(Grid g) {
+        finalPanel.add(new JLabel(g.getFinalText()));
+        g.setAllWordGrid(finalPanel);
+    }
 
+    public JPanel getFinalPanel() {
+        return finalPanel;
+    }
 
-        //    private Color[] guessWordColors(String answer, String guess) {
-//        Color[] listOfColors = new Color[answer.length()];
-//
-//        if (guess.length() != answer.length() || answer.isEmpty()) {
-//            return listOfColors;
-//        }
-//    for (int i = 0; i < answer.length(); i++) {
-//        if (answer.charAt(i) == guess.charAt(i)) {
-//            listOfColors[i] = Color.GREEN;
-//        } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
-//            answer = answer.substring(0, i) + " " + answer.substring(i+1);
-//            listOfColors[i] = Color.YELLOW;
-//        } else {
-//            listOfColors[i] = Color.RED;
-//        }
-//    }
-//
-//        return listOfColors;
-//}
-        //moved the main function to here bc i couldnt find a reason why overriding it was a good idea
-        private Color[] guessWordColors(String answer, String guess) {
-            Color[] listOfColors = new Color[answer.length()];
+    public JPanel getBottomtextpanel() {
+        return bottomtextpanel;
+    }
 
-            if (guess.length() != answer.length() || answer.isEmpty()) {
-                return listOfColors;
-            }
-
-            for (int i = 0; i < answer.length(); i++) {
-                if (answer.charAt(i) == guess.charAt(i)) {
-                    listOfColors[i] = customGreen;
-                } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
-                    answer = answer.substring(0, i) + " " + answer.substring(i+1);
-                    listOfColors[i] = customYellow;
-                } else {
-                    listOfColors[i] = customGrey;
-                }
-            }
-            return listOfColors;
+    //takes a list of colors and adds it to the next row available in the 2d color array
+    private void updateColorList(Color[] colorlist, Grid g) {
+        for (int i = 0; i < g.getCol(); i++) {
+            g.getColors()[currentRow][i] = colorlist[i];
         }
     }
+
+    private void updateLetters(String guess, Grid g) {
+        for (int i = 0; i < g.getCol(); i++) {
+            g.getLetters()[currentRow][i].setText(String.valueOf(guess.charAt(i)));
+            g.getLetters()[currentRow][i].setForeground(g.getColors()[currentRow][i]);
+        }
+    }
+
+    // updates the letters in the 2d Array
+    private void updateWordShown(String guess, Grid g) {
+        for (int i = 0; i < g.getSpaces()[0].length; i++) {
+            g.getSpaces()[currentRow][i] = guess.charAt(i);
+        }
+    }
+}
 
 
