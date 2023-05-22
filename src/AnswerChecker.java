@@ -54,25 +54,35 @@ public class AnswerChecker {
         Color[] listOfColors = new Color[answer.length()];
         for (int i = 0; i < answer.length(); i++) {
             if (answer.charAt(i) == guess.charAt(i)) {
-                answer = answer.substring(0, i) + " " + answer.substring(i+1);
-                listOfColors[i] = customGreen;
+                answer = answer.substring(0, i) + " " + answer.substring(i + 1);
+//                listOfColors[i] = customGreen;
+                listOfColors[i] = Color.GREEN;
                 greencount++;
-            } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
-                answer = answer.substring(0, i) + " " + answer.substring(i+1);
-                listOfColors[i] = customYellow;
-            } else {
-                listOfColors[i] = customGrey;
             }
         }
-        if (greencount == answer.length()) {
-            g.setFinalText("you win");
-            congratulate(g);
-        } else if (currentRow == row - 1) {
-            congratulate(g);
+        for (int j = 0; j < answer.length(); j++) {
+            if (answer.contains(String.valueOf(guess.charAt(j))) && listOfColors[j] != Color.GREEN) {
+                System.out.println("test");
+                answer = answer.substring(0, j) + " " + answer.substring(j + 1);
+//                    listOfColors[j] = customYellow;
+                listOfColors[j] = Color.YELLOW;
+            }
+        for (int k = 0; k < answer.length(); k++) {
+            if (listOfColors[k] == null) {
+//                    listOfColors[j] = customGrey;
+                listOfColors[k] = Color.GRAY;
+            }
         }
-        updateColorList(listOfColors, g);
-        updateWordShown(guess, g);
-        updateLetters(guess, g);
+            if (greencount == answer.length()) {
+                g.setFinalText("you win");
+                congratulate(g);
+            } else if (currentRow == row - 1) {
+                congratulate(g);
+            }
+            updateColorList(listOfColors, g);
+            updateWordShown(guess, g);
+            updateLetters(guess, g);
+        }
     }
 
     private void congratulate(Grid g) {
@@ -103,13 +113,13 @@ public class AnswerChecker {
     }
 
     public void setCustomGreen(Color green){
-        customGreen = green;
+        customGreen = Color.GREEN;
     }
     public void setCustomYellow(Color yellow){
-        customYellow = yellow;
+        customYellow = Color.YELLOW;
     }
-    public void setCustomGrey(Color grey){
-        customGrey = grey;
+    public void setCustomGrey(Color gray){
+        customGrey = Color.GRAY;
     }
 
     // updates the letters in the 2d Array
