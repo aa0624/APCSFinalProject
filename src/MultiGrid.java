@@ -12,6 +12,8 @@ public class MultiGrid{
         this.row=row;
         Grid[] gameGrids = new Grid[numGrids];
         JFrame frame = new JFrame("MultiWordle");
+        //JScrollPane scrl = new JScrollPane();
+        JPanel panel = new JPanel();
         frame.setLayout(new BorderLayout());
         for (int i = 0; i < numGrids; i++){
 //            gameGrids[i] = new Grid(row, Main.generateWord());
@@ -32,8 +34,11 @@ public class MultiGrid{
             } else {
                 gameGrids[i] = new Grid(row, "Apple");
             }
-            frame.add(gameGrids[i].getPanelNoFrame());
+            panel.add(gameGrids[i].getPanelNoFrame());
         }
+        //scrl.add(panel);
+        //frame.add(scrl);
+        frame.add(panel);
         if (RandomColor == false) {
             AnswerChecker a = new AnswerChecker(row, gameGrids);
             frame.add(a.getBottomtextpanel(), BorderLayout.SOUTH);
