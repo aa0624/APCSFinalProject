@@ -24,7 +24,6 @@ public class MultiGrid{
             } else if (letterAmt == 5){
 //                gameGrids[i] = new Grid(row, Main.generateWordFive());
                 gameGrids[i] = new Grid(row, "APPLE");
-
             } else if (letterAmt == 6){
                 gameGrids[i] = new Grid(row, Main.generateWordSix());
             } else if (letterAmt == 7){
