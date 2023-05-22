@@ -7,8 +7,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws FileNotFoundException {
-        MultiGrid f = new MultiGrid(1, 6, false, 7);
-        //MultiGrid n = new MultiGrid(4, 6);
+        MenuScreen m = new MenuScreen();
     }
 
 
