@@ -5,9 +5,9 @@ import java.awt.event.ActionListener;
 
 public class AnswerChecker {
 
-    private final Color customYellow;
-    private final Color customGreen;
-    private final Color customGrey;
+    private Color customYellow;
+    private Color customGreen;
+    private Color customGrey;
 
 
     private JPanel bottomtextpanel, finalPanel;
@@ -55,13 +55,13 @@ public class AnswerChecker {
         for (int i = 0; i < answer.length(); i++) {
             if (answer.charAt(i) == guess.charAt(i)) {
                 answer = answer.substring(0, i) + " " + answer.substring(i+1);
-                listOfColors[i] = Color.GREEN;
+                listOfColors[i] = customGreen;
                 greencount++;
             } else if (answer.contains(String.valueOf(guess.charAt(i)))) {
                 answer = answer.substring(0, i) + " " + answer.substring(i+1);
-                listOfColors[i] = Color.YELLOW;
+                listOfColors[i] = customYellow;
             } else {
-                listOfColors[i] = Color.RED;
+                listOfColors[i] = customGrey;
             }
         }
         if (greencount == answer.length()) {
@@ -100,6 +100,16 @@ public class AnswerChecker {
             g.getLetters()[currentRow][i].setText(String.valueOf(guess.charAt(i)));
             g.getLetters()[currentRow][i].setForeground(g.getColors()[currentRow][i]);
         }
+    }
+
+    public void setCustomGreen(Color green){
+        customGreen = green;
+    }
+    public void setCustomYellow(Color yellow){
+        customYellow = yellow;
+    }
+    public void setCustomGrey(Color grey){
+        customGrey = grey;
     }
 
     // updates the letters in the 2d Array
