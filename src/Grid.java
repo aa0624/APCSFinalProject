@@ -10,6 +10,7 @@ public class Grid {
 
     private final JPanel frame;
     private JPanel allWordGrid;
+    private boolean endGame;
     private boolean win;
     private final JPanel[] wordGrid;
     private final int row;
@@ -25,6 +26,7 @@ public class Grid {
         colors = new Color[row][col];
         letters = new JLabel[row][col];
         win=false;
+        endGame=false;
 
         frame = new JPanel();
         frame.setLayout(new BorderLayout());
@@ -118,5 +120,12 @@ public class Grid {
 
     public int getCol() {
         return col;
+    }
+
+    public boolean getEndGame(){
+        return endGame;
+    }
+    public boolean setEndGame(boolean endGame) {
+        this.endGame=endGame;
     }
 }

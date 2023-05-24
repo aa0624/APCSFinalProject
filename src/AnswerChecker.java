@@ -39,14 +39,13 @@ public class AnswerChecker {
         enterbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (endGame==false) {
                     if (answerField.getText().length() == grids[0].getAnswer().length()) {
                         for (Grid g : grids) {
+
                             compareToAnswer(g.getAnswer(), answerField.getText().toUpperCase(), g);
                         }
                         currentRow++;
                     }
-                }
             }
         });
     }
@@ -80,7 +79,7 @@ public class AnswerChecker {
                 g.setWin(true);
             } else if (currentRow == row) {
                 congratulate();
-                endGame=true;
+                g.setEndGame(true);
             } else {
                 updateColorList(listOfColors, g);
                 updateWordShown(guess, g);
