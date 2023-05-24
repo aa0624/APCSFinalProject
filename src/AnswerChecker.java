@@ -13,10 +13,11 @@ public class AnswerChecker {
     private JPanel bottomtextpanel, finalPanel;
 
     private int row, currentRow;
-
+    private Grid[] grids;
 
     public AnswerChecker(int row, Grid[] grids) {
         this.row = row;
+        this.grids=grids;
 
         customGreen = new Color(108, 169, 101);
         customYellow = new Color(200, 182, 83);
@@ -55,29 +56,27 @@ public class AnswerChecker {
         for (int i = 0; i < answer.length(); i++) {
             if (answer.charAt(i) == guess.charAt(i)) {
                 answer = answer.substring(0, i) + " " + answer.substring(i + 1);
-//                listOfColors[i] = customGreen;
-                listOfColors[i] = Color.GREEN;
+                listOfColors[i] = customGreen;
+//                listOfColors[i] = Color.GREEN;
                 greencount++;
             }
         }
         for (int j = 0; j < answer.length(); j++) {
-            if (answer.contains(String.valueOf(guess.charAt(j))) && listOfColors[j] != Color.GREEN) {
-                System.out.println("test");
+            if (answer.contains(String.valueOf(guess.charAt(j))) && listOfColors[j] != customGreen) {
                 answer = answer.substring(0, j) + " " + answer.substring(j + 1);
-//                    listOfColors[j] = customYellow;
-                listOfColors[j] = Color.YELLOW;
+                listOfColors[j] = customYellow;
+//                listOfColors[j] = Color.YELLOW;
             }
         for (int k = 0; k < answer.length(); k++) {
             if (listOfColors[k] == null) {
-//                    listOfColors[j] = customGrey;
-                listOfColors[k] = Color.GRAY;
+                listOfColors[k] = customGrey;
+//                listOfColors[k] = Color.GRAY;
             }
         }
             if (greencount == answer.length()) {
-                g.setFinalText("you win");
-                congratulate(g);
+                g.setWin(true);
             } else if (currentRow == row - 1) {
-                congratulate(g);
+                congratulate();
             }
             updateColorList(listOfColors, g);
             updateWordShown(guess, g);
@@ -85,9 +84,21 @@ public class AnswerChecker {
         }
     }
 
-    private void congratulate(Grid g) {
-        finalPanel.add(new JLabel(g.getFinalText()));
-        g.setAllWordGrid(finalPanel);
+    private void congratulate() {
+        boolean allWin=true;
+        for (Grid g: grids) {
+            if (g.getWin()!=true) {
+                allWin=false;
+            }
+        }
+        if (allWin==false) {
+            finalPanel.add(new JLabel("you lose"));
+        } else {
+            finalPanel.add(new JLabel("you win"));
+        }
+        for (Grid i: grids) {
+            i.setAllWordGrid(finalPanel);
+        }
     }
 
     public JPanel getFinalPanel() {

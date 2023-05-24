@@ -10,7 +10,7 @@ public class Grid {
 
     private final JPanel frame;
     private JPanel allWordGrid;
-
+    private boolean win;
     private final JPanel[] wordGrid;
     private final int row;
     private final int col;
@@ -24,6 +24,7 @@ public class Grid {
         spaces = new char[row][col];
         colors = new Color[row][col];
         letters = new JLabel[row][col];
+        win=false;
 
         frame = new JPanel();
         frame.setLayout(new BorderLayout());
@@ -93,6 +94,13 @@ public class Grid {
 
     public String getAnswer() {
         return answer;
+    }
+
+    public void setWin(boolean win) {
+        this.win = win;
+    }
+    public boolean getWin() {
+        return win;
     }
 
 

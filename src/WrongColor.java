@@ -1,7 +1,6 @@
 import java.awt.*;
 
 public class WrongColor extends AnswerChecker{
-
     public WrongColor(int row, Grid[] gameGrids){
         super(row, gameGrids);
         Color color1 = new Color(108, 169, 101);

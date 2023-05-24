@@ -53,7 +53,7 @@ public class Main {
 
     //override sortWords for the other modes with different length words
     public static ArrayList<String> sortWordsThree() throws FileNotFoundException {
-        Scanner s = new Scanner(new File("data/wordsLengthThree.txt.txt"));
+        Scanner s = new Scanner(new File("data/wordsLengthThree.txt"));
         ArrayList<String> list = new ArrayList<>();
 
         while (s.hasNext()) {
