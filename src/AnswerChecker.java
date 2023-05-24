@@ -14,6 +14,7 @@ public class AnswerChecker {
 
     private int row, currentRow;
     private Grid[] grids;
+    private boolean endGame;
 
     public AnswerChecker(int row, Grid[] grids) {
         this.row = row;
@@ -27,6 +28,7 @@ public class AnswerChecker {
         bottomtextpanel.setLayout(new BorderLayout());
 
         finalPanel = new JPanel();
+        endGame=false;
 
         JTextField answerField = new JTextField("", 10);
         bottomtextpanel.add(answerField, BorderLayout.WEST);
@@ -37,13 +39,14 @@ public class AnswerChecker {
         enterbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                for (Grid g : grids) {
-                    if (answerField.getText().length() == g.getAnswer().length()) {
-
-                        compareToAnswer(g.getAnswer(), answerField.getText().toUpperCase(), g);
+                if (endGame==false) {
+                    if (answerField.getText().length() == grids[0].getAnswer().length()) {
+                        for (Grid g : grids) {
+                            compareToAnswer(g.getAnswer(), answerField.getText().toUpperCase(), g);
+                        }
+                        currentRow++;
                     }
                 }
-                currentRow++;
             }
         });
     }
@@ -75,12 +78,14 @@ public class AnswerChecker {
         }
             if (greencount == answer.length()) {
                 g.setWin(true);
-            } else if (currentRow == row - 1) {
+            } else if (currentRow == row) {
                 congratulate();
+                endGame=true;
+            } else {
+                updateColorList(listOfColors, g);
+                updateWordShown(guess, g);
+                updateLetters(guess, g);
             }
-            updateColorList(listOfColors, g);
-            updateWordShown(guess, g);
-            updateLetters(guess, g);
         }
     }
 
@@ -93,11 +98,10 @@ public class AnswerChecker {
         }
         if (allWin==false) {
             finalPanel.add(new JLabel("you lose"));
+            System.out.println("test");
         } else {
             finalPanel.add(new JLabel("you win"));
-        }
-        for (Grid i: grids) {
-            i.setAllWordGrid(finalPanel);
+            System.out.println("test2");
         }
     }
 

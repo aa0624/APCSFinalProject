@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 public class MultiGrid{
     private final int numGrids;
     private JFrame frame;
-    private JPanel bottomtextpanel;
     private int row;
     public MultiGrid(int numGrids, Boolean RandomColor, int letterAmt) throws FileNotFoundException {
         this.numGrids = numGrids;
@@ -47,6 +46,12 @@ public class MultiGrid{
             frame.setSize(500, 500);
             frame.setVisible(true);
         }
+    }
+    public void setFrame() {
+        this.frame=frame;
+    }
+    public Frame getFrame() {
+        return frame;
     }
 }
 
