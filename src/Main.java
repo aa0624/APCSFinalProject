@@ -104,7 +104,7 @@ public class Main {
 
     //override sortWords for the other modes with different length words
     public static ArrayList<String> sortWordsEight() throws FileNotFoundException {
-        Scanner s = new Scanner(new File("data/wordsLengthEight.txt.txt"));
+        Scanner s = new Scanner(new File("data/wordsLengthEight.txt"));
         ArrayList<String> list = new ArrayList<>();
 
         while (s.hasNext()) {

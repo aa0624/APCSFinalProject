@@ -12,7 +12,7 @@ public class AnswerChecker {
 
     private JPanel bottomtextpanel, finalPanel;
 
-    private int row, currentRow;
+    private int row;
     private Grid[] grids;
     private boolean endGame;
 
@@ -39,13 +39,12 @@ public class AnswerChecker {
         enterbutton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                    if (answerField.getText().length() == grids[0].getAnswer().length()) {
-                        for (Grid g : grids) {
-
-                            compareToAnswer(g.getAnswer(), answerField.getText().toUpperCase(), g);
-                        }
-                        currentRow++;
+                if (answerField.getText().length() == grids[0].getAnswer().length()) {
+                    for (Grid g : grids) {
+                        compareToAnswer(g.getAnswer(), answerField.getText().toUpperCase(), g);
+                        g.setCurrentRow(g.getCurrentRow()+1);
                     }
+                }
             }
         });
     }
@@ -59,7 +58,6 @@ public class AnswerChecker {
             if (answer.charAt(i) == guess.charAt(i)) {
                 answer = answer.substring(0, i) + " " + answer.substring(i + 1);
                 listOfColors[i] = customGreen;
-//                listOfColors[i] = Color.GREEN;
                 greencount++;
             }
         }
@@ -67,23 +65,23 @@ public class AnswerChecker {
             if (answer.contains(String.valueOf(guess.charAt(j))) && listOfColors[j] != customGreen) {
                 answer = answer.substring(0, j) + " " + answer.substring(j + 1);
                 listOfColors[j] = customYellow;
-//                listOfColors[j] = Color.YELLOW;
             }
         for (int k = 0; k < answer.length(); k++) {
             if (listOfColors[k] == null) {
                 listOfColors[k] = customGrey;
-//                listOfColors[k] = Color.GRAY;
             }
         }
-            if (greencount == answer.length()) {
-                g.setWin(true);
-            } else if (currentRow == row) {
+
+            if (g.getCurrentRow() >= row) {
                 congratulate();
-                g.setEndGame(true);
-            } else {
+            }
+            else if (g.getEndGame()!= true){
                 updateColorList(listOfColors, g);
                 updateWordShown(guess, g);
                 updateLetters(guess, g);
+            }
+            if (greencount == answer.length()) {
+                g.setWin(true);
             }
         }
     }
@@ -94,13 +92,6 @@ public class AnswerChecker {
             if (g.getWin()!=true) {
                 allWin=false;
             }
-        }
-        if (allWin==false) {
-            finalPanel.add(new JLabel("you lose"));
-            System.out.println("test");
-        } else {
-            finalPanel.add(new JLabel("you win"));
-            System.out.println("test2");
         }
     }
 
@@ -115,14 +106,14 @@ public class AnswerChecker {
     //takes a list of colors and adds it to the next row available in the 2d color array
     private void updateColorList(Color[] colorlist, Grid g) {
         for (int i = 0; i < g.getCol(); i++) {
-            g.getColors()[currentRow][i] = colorlist[i];
+            g.getColors()[g.getCurrentRow()][i] = colorlist[i];
         }
     }
 
     private void updateLetters(String guess, Grid g) {
         for (int i = 0; i < g.getCol(); i++) {
-            g.getLetters()[currentRow][i].setText(String.valueOf(guess.charAt(i)));
-            g.getLetters()[currentRow][i].setForeground(g.getColors()[currentRow][i]);
+            g.getLetters()[g.getCurrentRow()][i].setText(String.valueOf(guess.charAt(i)));
+            g.getLetters()[g.getCurrentRow()][i].setForeground(g.getColors()[g.getCurrentRow()][i]);
         }
     }
 
@@ -139,7 +130,7 @@ public class AnswerChecker {
     // updates the letters in the 2d Array
     private void updateWordShown(String guess, Grid g) {
         for (int i = 0; i < g.getSpaces()[0].length; i++) {
-            g.getSpaces()[currentRow][i] = guess.charAt(i);
+            g.getSpaces()[g.getCurrentRow()][i] = guess.charAt(i);
         }
     }
 }

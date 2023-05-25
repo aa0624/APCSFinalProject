@@ -8,6 +8,8 @@ public class Grid {
     private Color[][] colors;
     private JLabel[][] letters;
 
+    private int currentRow;
+
     private final JPanel frame;
     private JPanel allWordGrid;
     private boolean endGame;
@@ -27,6 +29,7 @@ public class Grid {
         letters = new JLabel[row][col];
         win=false;
         endGame=false;
+        currentRow = 0;
 
         frame = new JPanel();
         frame.setLayout(new BorderLayout());
@@ -125,7 +128,15 @@ public class Grid {
     public boolean getEndGame(){
         return endGame;
     }
-    public boolean setEndGame(boolean endGame) {
+    public void setEndGame(boolean endGame) {
         this.endGame=endGame;
+    }
+
+    public int getCurrentRow() {
+        return currentRow;
+    }
+
+    public void setCurrentRow(int currentRow) {
+        this.currentRow = currentRow;
     }
 }
