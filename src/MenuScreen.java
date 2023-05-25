@@ -15,7 +15,7 @@ public class MenuScreen {
         JLabel label1 = new JLabel("Number of Grids");
         panel.add(label1);
 
-        Integer[] gridAmtChoices = {1,2,4,8,16};
+        Integer[] gridAmtChoices = {1,2,4,8};
         JComboBox<Integer> gridAmtDropdown = new JComboBox<Integer>(gridAmtChoices);
         panel.add(gridAmtDropdown);
 
@@ -28,7 +28,7 @@ public class MenuScreen {
         JLabel field4 = new JLabel("Number of Letters");
         panel.add(field4);
 
-        Integer[] letterAmtChoices = {3,4,5,6,7,8};
+        Integer[] letterAmtChoices = {3,4,5,6,7};
         JComboBox<Integer> letterAmtDropdown = new JComboBox<Integer>(letterAmtChoices);
         panel.add(letterAmtDropdown);
 

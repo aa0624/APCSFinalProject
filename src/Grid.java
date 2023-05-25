@@ -20,6 +20,7 @@ public class Grid {
     private String finalText;
 
     public Grid(int row, String answer) {
+        System.out.println(answer);
         this.row = row;
         this.col = answer.length();
         this.answer = answer;
@@ -139,4 +140,6 @@ public class Grid {
     public void setCurrentRow(int currentRow) {
         this.currentRow = currentRow;
     }
+
+    public int getRow(){return this.row;}
 }

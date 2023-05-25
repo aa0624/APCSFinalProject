@@ -36,12 +36,12 @@ public class MultiGrid{
         }
         frame.add(panel);
         if (RandomColor == false) {
-            AnswerChecker a = new AnswerChecker(row, gameGrids);
+            AnswerChecker a = new AnswerChecker(row, gameGrids, this);
             frame.add(a.getBottomtextpanel(), BorderLayout.SOUTH);
             frame.pack();
             frame.setVisible(true);
         } else {
-            WrongColor a = new WrongColor(row, gameGrids);
+            WrongColor a = new WrongColor(row, gameGrids, this);
             frame.add(a.getBottomtextpanel(), BorderLayout.SOUTH);
             frame.setSize(500, 500);
             frame.setVisible(true);
@@ -52,6 +52,10 @@ public class MultiGrid{
     }
     public Frame getFrame() {
         return frame;
+    }
+
+    public void closeFrame(){
+        frame.dispose();
     }
 }
 

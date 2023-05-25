@@ -16,10 +16,12 @@ public class AnswerChecker {
     private Grid[] grids;
     private boolean endGame;
 
-    public AnswerChecker(int row, Grid[] grids) {
+    private MultiGrid multiGrid;
+
+    public AnswerChecker(int row, Grid[] grids, MultiGrid multiGrid) {
         this.row = row;
         this.grids=grids;
-
+        this.multiGrid = multiGrid;
         customGreen = new Color(108, 169, 101);
         customYellow = new Color(200, 182, 83);
         customGrey = new Color(120, 124, 127);
@@ -41,8 +43,14 @@ public class AnswerChecker {
             public void actionPerformed(ActionEvent e) {
                 if (answerField.getText().length() == grids[0].getAnswer().length()) {
                     for (Grid g : grids) {
-                        compareToAnswer(g.getAnswer(), answerField.getText().toUpperCase(), g);
-                        g.setCurrentRow(g.getCurrentRow()+1);
+                        if(g.getCurrentRow() < g.getRow()){
+                            compareToAnswer(g.getAnswer(), answerField.getText().toUpperCase(), g);
+                            g.setCurrentRow(g.getCurrentRow()+1);
+                        }
+                        else{
+                            congratulate();
+                        }
+
                     }
                 }
             }
@@ -72,17 +80,21 @@ public class AnswerChecker {
             }
         }
 
-            if (g.getCurrentRow() >= row) {
-                congratulate();
-            }
-            else if (g.getEndGame()!= true){
+
+            if (g.getEndGame()!= true){
                 updateColorList(listOfColors, g);
                 updateWordShown(guess, g);
                 updateLetters(guess, g);
             }
             if (greencount == answer.length()) {
                 g.setWin(true);
+                g.setEndGame(true);
             }
+            if (g.getCurrentRow() >= row) {
+                g.setEndGame(true);
+                congratulate();
+            }
+
         }
     }
 
@@ -93,6 +105,34 @@ public class AnswerChecker {
                 allWin=false;
             }
         }
+        JFrame frame = new JFrame();
+        JPanel panel = new JPanel();
+        JLabel label = new JLabel("You Lose!");
+        if (allWin == true){
+            label.setText("You Win!");
+            System.out.println("win");
+        }
+        System.out.println("loss");
+        JButton button1 = new JButton("Play Again");
+        JButton button2 = new JButton("Quit");
+        panel.add(label);
+        panel.add(button1);
+        panel.add(button2);
+        finalPanel = panel;
+        multiGrid.closeFrame();
+        button1.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                MenuScreen menuScreen = new MenuScreen();
+            }
+        });
+        button2.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
     }
 
     public JPanel getFinalPanel() {
@@ -106,12 +146,17 @@ public class AnswerChecker {
     //takes a list of colors and adds it to the next row available in the 2d color array
     private void updateColorList(Color[] colorlist, Grid g) {
         for (int i = 0; i < g.getCol(); i++) {
+//            int r = Math.min(g.getRow()-1, g.getCurrentRow());
+//            g.getColors()[r][i] = colorlist[i];
             g.getColors()[g.getCurrentRow()][i] = colorlist[i];
         }
     }
 
     private void updateLetters(String guess, Grid g) {
         for (int i = 0; i < g.getCol(); i++) {
+//            int r = Math.min(g.getRow()-1, g.getCurrentRow());
+//            g.getLetters()[r][i].setText(String.valueOf(guess.charAt(i)));
+//            g.getLetters()[r][i].setForeground(g.getColors()[r][i]);
             g.getLetters()[g.getCurrentRow()][i].setText(String.valueOf(guess.charAt(i)));
             g.getLetters()[g.getCurrentRow()][i].setForeground(g.getColors()[g.getCurrentRow()][i]);
         }
@@ -130,6 +175,8 @@ public class AnswerChecker {
     // updates the letters in the 2d Array
     private void updateWordShown(String guess, Grid g) {
         for (int i = 0; i < g.getSpaces()[0].length; i++) {
+            int r = Math.min(g.getRow()-1, g.getCurrentRow());
+            //g.getSpaces()[r][i] = guess.charAt(i);
             g.getSpaces()[g.getCurrentRow()][i] = guess.charAt(i);
         }
     }

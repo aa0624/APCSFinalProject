@@ -1,8 +1,8 @@
 import java.awt.*;
 
 public class WrongColor extends AnswerChecker{
-    public WrongColor(int row, Grid[] gameGrids){
-        super(row, gameGrids);
+    public WrongColor(int row, Grid[] gameGrids, MultiGrid multiGrid){
+        super(row, gameGrids, multiGrid);
         Color color1 = new Color(108, 169, 101);
         Color color2 = new Color(200, 182, 83);
         Color color3 = new Color(120, 124, 127);
