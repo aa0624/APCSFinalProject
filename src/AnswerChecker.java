@@ -44,7 +44,7 @@ public class AnswerChecker {
                 if (answerField.getText().length() == grids[0].getAnswer().length()) {
                     for (Grid g : grids) {
                         if(g.getCurrentRow() < g.getRow()){
-                            compareToAnswer(g.getAnswer(), answerField.getText().toUpperCase(), g);
+                            compareToAnswer(g.getAnswer().toUpperCase(), answerField.getText().toUpperCase(), g);
                             g.setCurrentRow(g.getCurrentRow()+1);
                         }
                         else{
