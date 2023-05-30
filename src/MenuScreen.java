@@ -40,7 +40,7 @@ public class MenuScreen {
         rcmon.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //randColor = true;
+                randColor = true;
             }
         });
         rcmoff.addActionListener(new ActionListener() {

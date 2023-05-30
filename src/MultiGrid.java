@@ -8,10 +8,7 @@ public class MultiGrid{
     private int row;
     public MultiGrid(int numGrids, Boolean RandomColor, int letterAmt) throws FileNotFoundException {
         this.numGrids = numGrids;
-        row = letterAmt+1;
-        for (int i = 0; i<numGrids; i++){
-            row+=i;
-        }
+        row = (letterAmt) + numGrids;
         Grid[] gameGrids = new Grid[numGrids];
         JFrame frame = new JFrame("MultiWordle");
         JPanel panel = new JPanel();

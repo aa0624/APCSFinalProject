@@ -50,6 +50,7 @@ public class AnswerChecker {
                         else{
                             congratulate();
                         }
+                        answerField.setText("");
 
                     }
                 }
