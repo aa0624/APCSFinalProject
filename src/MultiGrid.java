@@ -1,7 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.io.FileNotFoundException;
-
+//helper
 public class MultiGrid{
     private final int numGrids;
     private JFrame frame;

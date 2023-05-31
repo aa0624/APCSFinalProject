@@ -31,7 +31,7 @@ public class Grid {
         win=false;
         endGame=false;
         currentRow = 0;
-
+        //helper
         frame = new JPanel();
         frame.setLayout(new BorderLayout());
 

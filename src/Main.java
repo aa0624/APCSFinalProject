@@ -10,7 +10,7 @@ public class Main {
         MenuScreen m = new MenuScreen();
     }
 
-
+//helper
     //override generate word for the other modes with different length words
     public static String generateWordFive() throws FileNotFoundException {
         ArrayList<String> wordsList = sortWordsFive();

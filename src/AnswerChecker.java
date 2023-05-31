@@ -70,6 +70,7 @@ public class AnswerChecker {
                 greencount++;
             }
         }
+        //for submit
         for (int j = 0; j < answer.length(); j++) {
             if (answer.contains(String.valueOf(guess.charAt(j))) && listOfColors[j] != customGreen) {
                 answer = answer.substring(0, j) + " " + answer.substring(j + 1);

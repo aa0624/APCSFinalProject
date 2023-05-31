@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 
 public class MenuScreen {
     private boolean randColor;
-
+    //help
     public MenuScreen (){
         JFrame frame = new JFrame("Wordle Menu");
         JPanel panel = new JPanel();
